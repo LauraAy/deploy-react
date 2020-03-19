@@ -3,11 +3,47 @@ import axios from 'axios'
 
 class App extends Component {
 
-  componentDidMount () {
-    axios.get('https://swapi.co/api/people/1')
+  state = {
+    pokemon: []
   }
 
-render () {
-  return()
+
+  componentDidMount () {
+    axios.get('https://pokeapi.co/api/v2/pokemon')
+      .then(({ data: { results } }) => {
+        console.log(results)
+        this.setState({ pokemon: results })
+      })
+      .catch(e => console.error(e))
+  }
+
+  handleGetPokemon = url => {
+    axios.get(url)
+      .then(({ data }) => {
+        console.log(data)
+      })
+  }
+
+  render () {
+    return (
+      <>
+      <h1>Hello World!</h1>
+      {
+        this.state.pokemon.map(pokemon => (
+          <div>
+            <p>{pokemon.name}</p>
+            <button onClick={() => this.handleGetPokemon(pokemon.url)}>More Info</button>
+          </div>
+        ))
+      }
+      {/* <div>
+        <p>{this.state.character.name}</p>
+        <p>{this.state.character.height}</p>
+        <p>{this.state.character.hair_color}</p>
+      </div> */}
+      </>
+    )
+  }
 }
 }
+export default App
