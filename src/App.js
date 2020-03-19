@@ -35,7 +35,12 @@ class App extends Component {
         </form>
         <ul>
           {
-          this.state.numbers.map(x => <li>{x}</li>)
+          this.state.numbers.map((x, i) =>(
+            <li key={i}>
+              {x}
+              <button onClick= {this.handleRemoveNumber}
+            </li>
+          ))
           }
         </ul>
       </>
